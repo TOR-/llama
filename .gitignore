@@ -1,3 +1,22 @@
+# Iso
 *.iso
-isodir
 sysroot
+isodir
+*.kernel
+
+# Object files
+*.o
+*.elf
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects 
+*.so
+*.so.*
+
+# Autosaved duplicates
+*~
