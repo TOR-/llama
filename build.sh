@@ -1,4 +1,5 @@
 #!/bin/sh
+cd $HOME/llama
 set -e
 . ./headers.sh
 

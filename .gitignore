@@ -20,3 +20,7 @@ isodir
 
 # Autosaved duplicates
 *~
+\#*\#
+
+# logs
+*.log

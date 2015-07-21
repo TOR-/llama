@@ -1,0 +1,11 @@
+romimage: file=/usr/share/bochs/BIOS-bochs-latest, address=0x00000
+memory: guest=32, host=32
+vgaromimage: file=/usr/share/bochs/VGABIOS-lgpl-latest
+ata0-master: type=cdrom, path=llama.iso, status=inserted
+boot: cdrom
+log: bochs.log
+keyboard_serial_delay: 250
+cpu: ips=15000000
+vga_update_interval: 150000
+mouse: enabled=0
+display_library: x
