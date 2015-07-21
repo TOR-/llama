@@ -11,11 +11,11 @@
 ### Full list of headers
 (output of find . -name *.h)
 ```
-libc/include/string.h  
-libc/include/stdio.h  
-libc/include/stdlib.h  
-libc/include/sys/cdefs.h  
-kernel/include/kernel/vga.h  
+libc/include/string.h
+libc/include/stdio.h
+libc/include/stdlib.h
+libc/include/sys/cdefs.h
+kernel/include/kernel/vga.h
 kernel/include/kernel/tty.h
 ````
 ## Runtime Order
@@ -23,3 +23,5 @@ kernel/include/kernel/tty.h
     1. First the `kernel_early()` function is called which sets up the essential kernel features (such as the kernel log). 
     2. The bootstrap assembly then proceeds to call `_init` (which invokes all the global constructors)
     3. `kernel_main()`
+
+grub-pc is the package to install
