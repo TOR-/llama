@@ -24,4 +24,8 @@ kernel/include/kernel/tty.h
     2. The bootstrap assembly then proceeds to call `_init` (which invokes all the global constructors)
     3. `kernel_main()`
 
-grub-pc is the package to install
+## Notes
+- packages necessary
+    - grub-pc
+    - cross-compiler targeting i686-elf
+    - qemu
