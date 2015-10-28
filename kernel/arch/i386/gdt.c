@@ -62,8 +62,6 @@ create_descriptor(uint32_t base, uint32_t limit, uint16_t flag)
     // Create the low 32 bit segment
     descriptor |= base  << 16;                       // set base bits 15:0
     descriptor |= limit  & 0x0000FFFF;               // set limit bits 15:0
- 
-    printf("0x%.16llX\n", descriptor);
 }
  
 void gdt_install(void)
