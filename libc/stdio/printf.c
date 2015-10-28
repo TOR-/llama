@@ -57,13 +57,86 @@ int printf(const char* restrict format, ...)
 			const char* s = va_arg(parameters, const char*);
 			print(s, strlen(s));
 		}
-		else
+		else if ( *format == 'x' )
 		{
-			goto incomprehensible_conversion;
+			format++;
+			int hex = va_arg(parameters, int);
+			char *buf = NULL;
+			int i=0;
+			int j=30;
+			printf("hex");
+			for(;hex!=0;i++)
+			  {
+			    printf("%d%d\n",i,hex);
+			    switch(hex%16){
+			    case 0x0:
+			      buf[i] = '0';
+			      break;
+			    case 0x1:
+			      buf[i] = '1';
+			      break;
+			    case 0x2:
+			      buf[i] = '2';
+			      break;
+			    case 0x3:
+			      buf[i] = '3';
+			      break;
+			    case 0x4:
+			      buf[i] = '4';
+			      break;
+			    case 0x5:
+			      buf[i] = '5';
+			      break;
+			    case 0x6:
+			      buf[i] = '6';
+			      break;
+			    case 0x7:
+			      buf[i] = '7';
+			      break;
+			    case 0x8:
+			      buf[i] = '8';
+			      break;
+			    case 0x9:
+			      buf[i] = '9';
+			      break;
+			    case 0xA:
+			      buf[i] = 'A';
+			      break;
+			    case 0xB:
+			      buf[i] = 'B';
+			      break;
+			    case 0xC:
+			      buf[i] = 'C';
+			      break;
+			    case 0xD:
+			      buf[i] = 'D';
+			      break;
+			    case 0xE:
+			      buf[i] = 'E';
+			      break;
+			    case 0xF:
+			      buf[i] = 'F';
+			      break;
+			    default:
+			      print("NaN",3);
+			      break;
+			    }
+			    hex = hex/16;
+			  }
+			i=0;
+			j=30;
+			char retbuf[30];
+			for(;i++,j--;i<30) retbuf[i] = buf[j];
+			print("0x",2);
+			print(retbuf, strlen(retbuf));
 		}
+		else
+		  {
+		    goto incomprehensible_conversion;
+		  }
 	}
-
+	
 	va_end(parameters);
-
+	
 	return written;
 }
