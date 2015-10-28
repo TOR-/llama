@@ -29,3 +29,12 @@ kernel/include/kernel/tty.h
     - grub-pc
     - cross-compiler targeting i686-elf
     - qemu
+
+## Todo
+- proper keyboard driver, with a getc and gets
+    - BKernDev's driver +
+    - why is my keyboard routine printing characters?: putch() is in there. let's remove it and see what happens. Hey, it stopped!
+    - what can I implement that can store inputted scancodes in a circular basis? sounds like an array and some counting logic.
+    - how can i make the os stop and wait for a string? sounds like a while loop waiting for someone to hit enter.
+
+
