@@ -5,12 +5,18 @@
 
 #include <kernel/tty.h>
 #include <arch/i386/gdt.h>
+#include <arch/i386/int.h>
+
 
 void kernel_early(void)
 {
   terminal_initialize();
   gdt_install();
   idt_install();
+	isrs_install();
+	irq_install();
+	// make sure irqs are working
+	__asm__ __volatile__ ("sti");
 }
 
 void kernel_main(void)
