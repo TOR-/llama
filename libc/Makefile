@@ -32,11 +32,13 @@ stdio/printf.o \
 stdio/putchar.o \
 stdio/puts.o \
 stdlib/abort.o \
+stdlib/itoa.o \
 string/memcmp.o \
 string/memcpy.o \
 string/memmove.o \
 string/memset.o \
 string/strlen.o \
+string/reverse.o\
 
 HOSTEDOBJS:=\
 $(ARCH_HOSTEDOBJS) \
