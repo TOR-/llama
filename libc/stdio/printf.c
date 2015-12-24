@@ -60,7 +60,7 @@ int printf(const char* restrict format, ...)
 		else if ( *format == 'x' )
 		{
 			format++;
-			int hex = va_arg(parameters, int);
+			/*int hex = va_arg(parameters, int);
 			char *buf = NULL;
 			int i=0;
 			int j=30;
@@ -128,7 +128,7 @@ int printf(const char* restrict format, ...)
 			char retbuf[30];
 			for(;i++,j--;i<30) retbuf[i] = buf[j];
 			print("0x",2);
-			print(retbuf, strlen(retbuf));
+			print(retbuf, strlen(retbuf));*/
 		}
 		else
 		  {

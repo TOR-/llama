@@ -10,9 +10,9 @@
 
 void kernel_early(void)
 {
-  terminal_initialize();
-  gdt_install();
-  idt_install();
+	terminal_initialize();
+	gdt_install();
+	idt_install();
 	isrs_install();
 	irq_install();
 	// make sure irqs are working
@@ -21,7 +21,9 @@ void kernel_early(void)
 
 void kernel_main(void)
 {
-  printf("Hello, kernel World!\n");
+	printf("W");
+	printf("Hello, kernel World!\n%d",10/0);
+
 	/* printf("                    ___~___\n                ___(__((__(___                  /|>\n \
                (_((_((_((_((_(                 / |\\\n\
              \\=-:--:--:--:--:--.              /__|_\\\n\
