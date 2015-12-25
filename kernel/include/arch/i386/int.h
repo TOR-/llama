@@ -25,8 +25,8 @@ struct idt_ptr
     unsigned int base;
 } __attribute__((packed));
 
-/* Declare an IDT of 256 entries. Although we will only use the
-*  first 32 entries in this tutorial, the rest exists as a bit
+/* Declare an IDT of 256 entries. Although only the
+*  first 32 entries are being used, the rest exists as a bit
 *  of a trap. If any undefined IDT entry is hit, it normally
 *  will cause an "Unhandled Interrupt" exception. Any descriptor
 *  for which the 'presence' bit is cleared (0) will generate an
@@ -34,13 +34,14 @@ struct idt_ptr
 struct idt_entry idt[256];
 struct idt_ptr idtp;
 
-/* This exists in 'start.asm', and is used to load our IDT */
+/* This exists in 'int.S', and is used to load our IDT */
 void idt_load();
 
 void idt_set_gate(unsigned char num, unsigned long base, unsigned short sel, unsigned char flags);
 
 void idt_install();
 
+void irq_install_handler(int irq, void (*handler)(struct regs *r));
 
 void isrs_install();
 void irq_install();

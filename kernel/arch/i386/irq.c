@@ -99,8 +99,6 @@ void irq_install(void)
 *  an EOI, you won't raise any more IRQs */
 void irq_handler(struct regs *r)
 {
-	printf("IRQ");
-	for(;;) asm volatile ("hlt");
     /* This is a blank function pointer */
     void (*handler)(struct regs *r);
 
