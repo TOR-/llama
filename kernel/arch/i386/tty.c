@@ -10,13 +10,9 @@ size_t terminal_column;
 uint8_t terminal_color;
 uint16_t* terminal_buffer;
 
-void terminal_initialize(void)
+void terminal_clear(void)
 {
-  terminal_row = 0;
-  terminal_column = 0;
-  terminal_color = make_color(COLOR_LIGHT_GREY, COLOR_BLACK);
-  terminal_buffer = VGA_MEMORY;
-  for ( size_t y = 0; y < VGA_HEIGHT; y++ )
+for ( size_t y = 0; y < VGA_HEIGHT; y++ )
     {
       for ( size_t x = 0; x < VGA_WIDTH; x++ )
 	{
@@ -24,6 +20,14 @@ void terminal_initialize(void)
 	  terminal_buffer[index] = make_vgaentry(' ', terminal_color);
 	}
     }
+}
+void terminal_initialize(void)
+{
+  terminal_row = 0;
+  terminal_column = 0;
+  terminal_color = make_color(COLOR_LIGHT_GREY, COLOR_BLACK);
+  terminal_buffer = VGA_MEMORY;
+  
 }
 
 void terminal_setcolor(uint8_t color)
@@ -56,6 +60,7 @@ void terminal_putchar(char c)
       if ( ++terminal_row == VGA_HEIGHT )
 	{
 	  terminal_row = 0;
+	terminal_clear();
 	}
     }
 }

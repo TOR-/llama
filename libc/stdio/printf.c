@@ -12,7 +12,7 @@ static void print(const char* data, size_t data_length)
 
 #define MAX_INT_SIZE 12
 
-int printint ( int i, int capital, int base )
+int printint ( int i, char capital, int base )
 {
   char retbuf[MAX_INT_SIZE];
   int r = 0, neg = 0, u = i;
@@ -25,22 +25,42 @@ int printint ( int i, int capital, int base )
       neg = 1;
     }
   for (int h = 0; h < MAX_INT_SIZE; h++)
-	{
-		retbuf[h]='\0';
-	}
-  bc = retbuf + MAX_INT_SIZE - 1;
-  *--bc = '\0';
+    {
+      retbuf[h]='\0';
+    }
+  bc = retbuf + MAX_INT_SIZE;
+  *bc = '\0';
   while (u) {
-		r = u % base;
-		if( r >= 10 )
-			r += capital - '0' - 10;
-		*--bc = r + '0';
-		u /= base;
-	}
-	
-	if(neg) *--bc = '-';
-	print(retbuf, MAX_INT_SIZE);
-	return 0;
+    r = u % base;
+    if( r >= 10 )
+      r += capital - '0' - 10;
+    *--bc = r + '0';
+    u /= base;
+  }
+
+  char *c = retbuf;
+  int width = MAX_INT_SIZE;
+  while( *c == '\0' )
+    {
+      width--;
+      c++;
+    }
+  char buf[width];
+  char *b = buf;
+  if (neg){
+    *b = '-';
+    b++;  
+  }
+
+  while( *c != '\0' )
+    {
+      *b = *c;
+      //printf(" b%c c%c \n",*buf, *c);
+      b++;
+      c++;
+    }
+  print(buf, width);
+  return 0;
 }
 
 int printf(const char* restrict format, ...)
@@ -100,8 +120,9 @@ int printf(const char* restrict format, ...)
       else if ( *format == 'x' )
 	{
 	  format++;
-		int x = va_arg(parameters, const int);
-		printint(x, 'a' , 16);
+	  int x = va_arg(parameters, const int);
+	  print("0x",2);
+	  printint(x, 'a' , 16);
 	}
       else
 	{
