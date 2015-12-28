@@ -4,6 +4,7 @@
 /* By default, the timer fires at 18.222Hz */
 void timer_handler(struct regs *r)
 {
+
   /* Increment our 'tick count' */
   timer_ticks++;
 }

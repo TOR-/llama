@@ -46,24 +46,109 @@ unsigned char kbdus[128] =
 /* Handles the keyboard interrupt */
 void keyboard_handler(struct regs *r)
 {
-  unsigned char scancode;
+  unsigned int scancode;
+  unsigned int scancodebuf[5];
+  unsigned int *sc = scancodebuf;
   /* Read from the keyboard's data buffer */
-  scancode = inb(0x60);
-
+  *sc = inb(0x60);
+  
+  printf("\nscancode = %x ", scancode);
   /* If the top bit of the byte we read from the keyboard is
    *  set, that means that a key has just been released */
-  if (scancode & 0x80)
+  if (*sc & 0x80)
     {
       /* see if user released shift, alt, or control keys */
+      switch(*sc)
+	{
+	case 0xaa:
+	  special_keys.shift = 0;
+	  printf("LSHIFT RELEASED");
+	  //lshift
+	  break;
+	case 0xb6:
+	  special_keys.shift = 0;
+	  printf("RSHIFT RELEASED");
+	  //rshift
+	  break;
+	case 0x9d:
+	  if (sc[0] == 0xe0) {
+	    special_keys.control = 0; //rctl
+	    sc--;
+	  }	  
+	  special_keys.control = 0; //lctl
+	  printf("CTL RELEASED");
+	  break;
+	case 0xe0:
+	  sc++;
+	  //rctl
+	  //0xe0 0x1d
+	  //0xe0 0x9d
+	  break;
+	case 0xb8:
+	  if (sc[0] == 0xe0){
+	    special_keys.alt = 0; //ralt
+	    sc--;
+	  }
+	  special_keys.alt = 0; //lalt
+	  printf("ALT RELEASED");
+	  //lalt
+	  break;
+	  //ralt
+	  //0xe0 0x38
+	  //0xe0 0xb8
+	default:
+	  break;
+	}
     }
   else
     {
-      /* Key just pressed */
-      printf("%c",kbdus[scancode]);
+      switch(*sc)
+	{      /* Key just pressed */
+	case 0x2A:
+	  special_keys.shift = 1;
+	  printf("LSHIFT PRESSED");
+	  //lshift
+	  break;
+	case 0x36:
+	  special_keys.shift = 1;
+	  printf("RSHIFT PRESSED");
+	  //rshift
+	  break;
+	case 0x1D:
+	  if (sc[0] == 0xe0) {
+	    special_keys.control = 1; //rctl
+	    sc--;
+	  }	  
+	  special_keys.control = 1; //lctl
+	  printf("CTL PRESSED");
+	  break;
+	case 0xe0:
+	  sc++;
+	  //rctl
+	  //0xe0 0x1d
+	  //0xe0 0x9d
+	  break;
+	case 0x38:
+	  if (sc[0] == 0xe0){
+	    special_keys.alt = 1; //ralt
+	    sc--;
+	  }
+	  special_keys.alt = 1; //lalt
+	  //lalt
+	  printf("ALT PRESSED");
+	  break;
+	default:	  
+	  printf("%c",kbdus[*sc]);
+	  break;
+	}
     }
 }
 
 void keyboard_install()
 {
+  special_keys.shift = 0;
+  special_keys.control = 0;
+  special_keys.alt = 0;
+
   irq_install_handler(1, keyboard_handler);
 }
