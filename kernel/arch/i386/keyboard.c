@@ -137,8 +137,11 @@ void keyboard_handler(struct regs *r)
 	  //lalt
 	  printf("ALT PRESSED");
 	  break;
-	default:	  
-	  printf("%c",kbdus[*sc]);
+	default:
+	  if(special_keys.shift)
+	    printf("%c",kbdus[*sc]-0x20); //kbdus[*sc] - ('a' - 'A')
+	  else
+	    printf("%c",kbdus[*sc]);
 	  break;
 	}
     }
